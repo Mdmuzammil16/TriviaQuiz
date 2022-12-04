@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+
+    <LinearLayout
+        android:background="@color/green"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_32sdp"
+            android:src="@drawable/luck" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="12 / 15"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_24sdp"
+            android:fontFamily="@font/montserratmedium" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:orientation="vertical"
+            android:backgroundTint="#D7FFFFFF"
+            android:background="@drawable/sheetcurve">
+
+            <LinearLayout
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_8sdp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:backgroundTint="#4BC5C5C5"
+                android:background="@drawable/profilecurv" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:weightSum="10"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:background="@drawable/outlinebtn"
+                    android:backgroundTint="@color/green"
+                    android:layout_weight="5"
+                    android:layout_margin="@dimen/_12sdp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_height="@dimen/_100sdp">
+
+                    <ImageView
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:src="@drawable/coin"/>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/montserratbold"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:textSize="@dimen/_14sdp"
+                       android:text="Coins: 12" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:background="@drawable/outlinebtn"
+                    android:backgroundTint="@color/green"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_weight="5"
+                    android:layout_margin="@dimen/_12sdp"
+                    android:layout_height="@dimen/_100sdp">
+
+
+                    <ImageView
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:src="@drawable/timer"/>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/montserratbold"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:textSize="@dimen/_14sdp"
+                        android:text="Time: 2:00" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Better luck next Time. You have to answer all the answers Correctly to Level Up"
+                android:textAlignment="center"
+                android:padding="@dimen/_12sdp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/montserratregular"
+                android:background="@drawable/outlinebtn"
+                android:backgroundTint="@color/green"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:gravity="bottom"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="match_parent"
+                    android:layout_margin="@dimen/_16sdp"
+                    android:background="@drawable/outlinebtn"
+                    android:backgroundTint="#529C92"
+                    android:text="Play Again"
+                    android:fontFamily="@font/montserratbold"
+                    android:textColor="@color/white"
+                    android:id="@+id/playBtn"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>

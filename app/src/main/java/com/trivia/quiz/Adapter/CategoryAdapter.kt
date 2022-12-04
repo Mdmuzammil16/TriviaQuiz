@@ -1,5 +1,6 @@
 package com.trivia.quiz.Adapter
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.Navigation
@@ -23,7 +24,12 @@ class CategoryAdapter constructor(val arrayList: ArrayList<CategoryModel>) : Rec
         holder.mybinding!!.catDescTv.text = arrayList[position].desc
 
         holder.mybinding!!.root.setOnClickListener{
-            Navigation.findNavController(it).navigate(R.id.action_categoryFragment2_to_quizFragment)
+            val bundle = Bundle()
+            bundle.putString("category", arrayList[position].value)
+
+            Navigation.findNavController(it).navigate(
+            R.id.action_categoryFragment2_to_difficultyFragment,
+            bundle)
         }
     }
 

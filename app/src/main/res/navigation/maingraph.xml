@@ -8,14 +8,35 @@
         android:id="@+id/quizFragment"
         android:name="com.trivia.quiz.Fragment.QuizFragment"
         android:label="fragment_quiz"
-        tools:layout="@layout/fragment_quiz" />
+        tools:layout="@layout/fragment_quiz" >
+        <action
+            android:id="@+id/action_quizFragment_to_successFragment2"
+            app:destination="@id/successFragment2"
+            app:popUpTo="@id/categoryFragment2"
+            app:popUpToInclusive="false" />
+    </fragment>
     <fragment
         android:id="@+id/categoryFragment2"
         tools:layout="@layout/fragment_category"
         android:name="com.trivia.quiz.Fragment.CategoryFragment"
         android:label="CategoryFragment" >
         <action
-            android:id="@+id/action_categoryFragment2_to_quizFragment"
-            app:destination="@id/quizFragment" />
+            android:id="@+id/action_categoryFragment2_to_difficultyFragment"
+            app:destination="@id/difficultyFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/difficultyFragment"
+        android:name="com.trivia.quiz.Fragment.DifficultyFragment"
+        android:label="fragment_difficulty"
+        tools:layout="@layout/fragment_difficulty" >
+        <action
+            android:id="@+id/action_difficultyFragment_to_quizFragment"
+            app:destination="@id/quizFragment"
+            app:popUpTo="@id/categoryFragment2" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_success"
+        android:id="@+id/successFragment2"
+        android:name="com.trivia.quiz.Fragment.SuccessFragment"
+        android:label="SuccessFragment" />
 </navigation>

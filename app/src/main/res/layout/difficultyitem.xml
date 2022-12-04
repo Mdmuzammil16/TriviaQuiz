@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_margin="@dimen/_8sdp"
+        android:elevation="@dimen/_12sdp"
+        android:padding="@dimen/_12sdp"
+        android:background="@drawable/questionback"
+        android:backgroundTint="@color/white"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:id="@+id/difficultyIv"
+            android:src="@drawable/hard"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/_12sdp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:textColor="@color/darkGreen"
+                android:id="@+id/difficultyTv"
+                android:textSize="@dimen/_16sdp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserratbold"
+                android:text="Easy"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:textColor="#454545"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:textSize="@dimen/_12sdp"
+                android:id="@+id/questionCountTv"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserratmedium"
+                android:text="Questions: 6"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:textColor="@color/errorcolor"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:textSize="@dimen/_10sdp"
+                android:id="@+id/difficultyLevelTv"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserratregular"
+                android:text="Level Increment: 25"/>
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+</layout>

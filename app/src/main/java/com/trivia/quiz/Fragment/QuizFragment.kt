@@ -14,6 +14,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.staffofyuser.staffofyuser.Api.NetworkResult
 import com.trivia.quiz.R
 import com.trivia.quiz.ViewModel.QuizViewModel
@@ -37,8 +38,6 @@ class QuizFragment : Fragment() {
     ): View {
 
         _binding = FragmentQuizBinding.inflate(inflater, container, false)
-        quizViewModel.getQuizQuestions("film_and_tv","10","easy")
-
           return   binding.root
     }
 
@@ -48,8 +47,6 @@ class QuizFragment : Fragment() {
       buttons =  arrayOf(binding.answerA, binding.answerB, binding.answerC, binding.answerD)
         bindObserver()
         bindQuizObserver()
-
-
 
     }
 
@@ -79,12 +76,13 @@ class QuizFragment : Fragment() {
                     binding.questionTv.text = response.data?.question
                     val answers = response.data?.incorrectAnswers!!
                     val random = 0..answers.size
-                    answers.add(random.random(),response.data.correctAnswer)
+                    val randomNumber = random.random()
+                    answers.add(randomNumber,response.data.correctAnswer)
                     setUpAnswers(answers,
-                        response.data.correctAnswer)
+                        response.data.correctAnswer, randomNumber)
                 }
                 is NetworkResult.Error -> {
-
+                    findNavController().navigate(R.id.action_quizFragment_to_successFragment2)
                 }
 
 
@@ -95,10 +93,10 @@ class QuizFragment : Fragment() {
         }
     }
 
-    private fun setUpAnswers(answers: ArrayList<String>, correctAnswer: String) {
+    private fun setUpAnswers(answers: ArrayList<String>, correctAnswer: String, answerIndex: Int) {
 
-        Log.d("fazilApp", answers.count().toString())
         for (i in 0..3){
+            buttons[i].backgroundTintList = null
             buttons[i].text = answers[i]
             buttons[i].setOnClickListener{
                 count = count.plus(1)
@@ -113,6 +111,9 @@ class QuizFragment : Fragment() {
 
                 }else{
                     controlButtons(false)
+
+                    buttons[answerIndex].setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                    buttons[answerIndex].backgroundTintList = ColorStateList.valueOf(Color.parseColor("#159f8b"))
                     buttons[i].setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
                     buttons[i].backgroundTintList = ColorStateList.valueOf(Color.parseColor("#e94d4e"))
 

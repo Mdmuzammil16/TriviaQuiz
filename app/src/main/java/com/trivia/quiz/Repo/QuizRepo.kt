@@ -7,9 +7,11 @@ import com.staffofyuser.staffofyuser.Api.NetworkResult
 import com.trivia.quiz.Api.QuizApi
 import com.trivia.quiz.ResponseModel.QuizResponse
 import com.trivia.quiz.ResponseModel.QuizResponseItem
+import com.trivia.quiz.utils.UserPreference
 import javax.inject.Inject
 
-class QuizRepo @Inject constructor(val quizApi: QuizApi) {
+class QuizRepo @Inject constructor(val quizApi: QuizApi,
+                                   val userPreference: UserPreference) {
 
    private val _quizListLiveData = MutableLiveData<NetworkResult<QuizResponse>>()
     val quizListLiveData : LiveData<NetworkResult<QuizResponse>> get() = _quizListLiveData
@@ -27,6 +29,7 @@ class QuizRepo @Inject constructor(val quizApi: QuizApi) {
         val response = quizApi.getQuestions(category,limit, difficulty)
         if(response.isSuccessful && response.body() != null){
 
+            _scoreLiveData.value = 0
             _quizListLiveData.value = NetworkResult.Success(response.body()!!)
             moveToNextQuestions(0)
 
@@ -51,10 +54,15 @@ class QuizRepo @Inject constructor(val quizApi: QuizApi) {
         }
     }
 
-
     fun onCorrectAnswer(count: Int){
         moveToNextQuestions(count)
+
+        val previousPoint = userPreference.getUserinfo("points")
+
         _scoreLiveData.value = _scoreLiveData.value?.plus(1)
+
+        val updatedPoints = previousPoint.toInt().plus(1)
+        userPreference.saveUserinfo("points", updatedPoints.toString())
 
     }
 

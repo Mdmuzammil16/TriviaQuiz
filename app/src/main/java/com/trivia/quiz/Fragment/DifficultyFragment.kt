@@ -1,0 +1,104 @@
+package com.trivia.quiz.Fragment
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import com.trivia.quiz.R
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.staffofyuser.staffofyuser.Api.NetworkResult
+import com.trivia.quiz.Adapter.DifficultyAdapter
+import com.trivia.quiz.InterFaces.DifficultyInterface
+import com.trivia.quiz.Models.DifficultyModel
+import com.trivia.quiz.ViewModel.QuizViewModel
+import com.trivia.quiz.databinding.FragmentDifficultyBinding
+import com.trivia.quiz.utils.UserPreference
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
+
+@AndroidEntryPoint
+class DifficultyFragment : Fragment(), DifficultyInterface {
+
+    var _binding: FragmentDifficultyBinding? = null
+    val binding get() = _binding!!
+    val quizViewModel by activityViewModels<QuizViewModel>()
+
+    @Inject
+    lateinit var userPreference: UserPreference
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        _binding = FragmentDifficultyBinding.inflate(inflater, container, false)
+        return binding.root
+
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+
+        binding.difficultyRv.layoutManager = LinearLayoutManager(requireContext())
+        val list = arrayListOf<DifficultyModel>(
+            DifficultyModel("Easy", "10", "25",R.drawable.easy),
+            DifficultyModel("Medium", "15", "50", R.drawable.medium),
+            DifficultyModel("Hard", "25", "100", R.drawable.hard)
+        )
+
+        binding.difficultyRv.adapter = DifficultyAdapter(list, this)
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+    override fun getDifficulty(model: DifficultyModel) {
+        val category = arguments?.getString("category","")
+        quizViewModel.getQuizQuestions(category.toString(),
+            model.questionsCount.lowercase(),model.title.lowercase())
+        bindObserver()
+
+    }
+
+    private fun bindObserver() {
+        quizViewModel.quizListLiveData.observe(viewLifecycleOwner){ response ->
+            when(response){
+                is NetworkResult.Success -> {
+                    findNavController().navigate(R.id.action_difficultyFragment_to_quizFragment)
+                }
+
+                is NetworkResult.Error -> {
+                    Toast.makeText(requireContext(), "Failed "+response.message, Toast.LENGTH_SHORT).show()
+                }
+                is NetworkResult.Loading -> {}
+
+
+            }
+
+
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        binding.pointsTv.text = userPreference.getUserinfo("points")
+    }
+
+}

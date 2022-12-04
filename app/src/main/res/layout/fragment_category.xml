@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".Fragment.Category"
+        android:background="@color/green">
+
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:paddingVertical="@dimen/_6sdp"
+            android:paddingHorizontal="@dimen/_12sdp"
+            android:gravity="center_vertical"
+            android:elevation="@dimen/_8sdp"
+            android:outlineProvider="paddedBounds"
+            android:layout_margin="@dimen/_12sdp"
+            android:background="@drawable/profilecurv"
+            android:backgroundTint="#1C8A7C"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:src="@drawable/person" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/_12sdp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fazil"
+                        android:fontFamily="@font/montserratmedium"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14sdp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="LvL: 100"
+                        android:fontFamily="@font/montserratbold"
+                        android:textColor="@color/yellow"
+                        android:textSize="@dimen/_10sdp"/>
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="end|center"
+                android:gravity="center"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/coin"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Points"
+                        android:fontFamily="@font/montserratmedium"
+                        android:textColor="@color/white"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="12"
+                        android:fontFamily="@font/montserratbold"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Let's Play !"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_22sdp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_22sdp"
+            android:fontFamily="@font/montserratbold"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose a category to start Playing."
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_marginHorizontal="@dimen/_22sdp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp"
+            android:fontFamily="@font/montserratregular"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/_24sdp"
+            android:backgroundTint="#D7FFFFFF"
+            android:background="@drawable/sheetcurve">
+
+
+        <LinearLayout
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_8sdp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:backgroundTint="#4BC5C5C5"
+            android:background="@drawable/profilecurv"/>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:itemCount="12"
+                android:id="@+id/categoryRv"
+                tools:listitem="@layout/categoryitem"/>
+
+
+
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
+
+</layout>

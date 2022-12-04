@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_margin="@dimen/_10sdp"
+        android:elevation="@dimen/_12sdp"
+        android:padding="@dimen/_12sdp"
+        android:background="@drawable/questionback"
+        android:backgroundTint="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_90sdp"
+            android:id="@+id/catIv"
+            android:src="@drawable/geo" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/catTitleTv"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserratbold"
+                android:textColor="@color/green"
+                android:text="Geography" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:fontFamily="@font/montserratregular"
+                android:id="@+id/catDescTv"
+                android:textColor="@color/green"
+                android:text="Test Your knowledge on geography by giving a quiz" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>

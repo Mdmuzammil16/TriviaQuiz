@@ -84,6 +84,7 @@ class QuizFragment : Fragment() {
                 is NetworkResult.Error -> {
                     findNavController().navigate(R.id.action_quizFragment_to_successFragment2)
                 }
+                is NetworkResult.Loading -> {}
 
 
             }

@@ -27,11 +27,11 @@ class CategoryFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentCategoryBinding.inflate(inflater, container,false)
 
-        return binding!!.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,6 +42,8 @@ class CategoryFragment: Fragment() {
         val list = arrayListOf<CategoryModel>(
             CategoryModel("Arts & Literacy", "" +
                     "Test Your Knowledge in Arts & Literacy", R.drawable.arts,"arts_and_literature"),
+            CategoryModel("Geography", "Let's Explore more about our geographical Knowledge",
+                R.drawable.geo, "geography"),
             CategoryModel("Music", "" +
                 "Test Your Knowledge in Music", R.drawable.music,"music"),
             CategoryModel("Sports", "" +
@@ -50,6 +52,7 @@ class CategoryFragment: Fragment() {
                     "Test Your Knowledge in Food", R.drawable.food,"food_and_drink"),
             CategoryModel("Flims", "" +
                     "Test Your Knowledge in Flims", R.drawable.flim,"film_and_tv")
+
         )
 
 
@@ -63,7 +66,7 @@ class CategoryFragment: Fragment() {
     override fun onStart() {
         super.onStart()
 
-       binding.pointsTv.text = userPreference.getUserinfo("points")
+       binding.pointsTv.text = userPreference.getUserinfo("points","0")
     }
 
     override fun onDestroy() {

@@ -10,13 +10,13 @@
         <entry key="app/src/main/res/drawable/wave.xml" value="0.131" />
         <entry key="app/src/main/res/font/myfonts.xml" value="0.24259259259259258" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21927083333333333" />
-        <entry key="app/src/main/res/layout/categoryitem.xml" value="0.2351165771484375" />
-        <entry key="app/src/main/res/layout/difficultyitem.xml" value="0.19899597167968758" />
+        <entry key="app/src/main/res/layout/categoryitem.xml" value="0.20006561279296875" />
+        <entry key="app/src/main/res/layout/difficultyitem.xml" value="0.16826324462890624" />
         <entry key="app/src/main/res/layout/duffucultyitem.xml" value="0.1629257202148436" />
         <entry key="app/src/main/res/layout/fragment_category.xml" value="0.20470275878906274" />
         <entry key="app/src/main/res/layout/fragment_difficulty.xml" value="0.20304107666015625" />
         <entry key="app/src/main/res/layout/fragment_quiz.xml" value="0.15752105712890618" />
-        <entry key="app/src/main/res/layout/fragment_success.xml" value="0.2074554443359375" />
+        <entry key="app/src/main/res/layout/fragment_success.xml" value="0.19216461181640626" />
       </map>
     </option>
   </component>

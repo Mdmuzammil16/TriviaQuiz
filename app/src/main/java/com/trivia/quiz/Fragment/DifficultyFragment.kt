@@ -34,7 +34,7 @@ class DifficultyFragment : Fragment(), DifficultyInterface {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View  {
 
         _binding = FragmentDifficultyBinding.inflate(inflater, container, false)
         return binding.root
@@ -49,24 +49,17 @@ class DifficultyFragment : Fragment(), DifficultyInterface {
 
         binding.difficultyRv.layoutManager = LinearLayoutManager(requireContext())
         val list = arrayListOf<DifficultyModel>(
-            DifficultyModel("Easy", "10", "25",R.drawable.easy),
-            DifficultyModel("Medium", "15", "50", R.drawable.medium),
-            DifficultyModel("Hard", "25", "100", R.drawable.hard)
+            DifficultyModel("Easy", "10", "1",R.drawable.easy, quizViewModel.getRandomFacts()),
+            DifficultyModel("Medium", "15", "3", R.drawable.medium, quizViewModel.getRandomFacts()),
+            DifficultyModel("Hard", "25", "5", R.drawable.hard, quizViewModel.getRandomFacts())
         )
 
-        binding.difficultyRv.adapter = DifficultyAdapter(list, this)
+        binding.difficultyRv.adapter = DifficultyAdapter(list,
+            this,
+            requireActivity())
 
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
 
     override fun getDifficulty(model: DifficultyModel) {
         val category = arguments?.getString("category","")
@@ -87,8 +80,6 @@ class DifficultyFragment : Fragment(), DifficultyInterface {
                     Toast.makeText(requireContext(), "Failed "+response.message, Toast.LENGTH_SHORT).show()
                 }
                 is NetworkResult.Loading -> {}
-
-
             }
 
 
@@ -98,7 +89,17 @@ class DifficultyFragment : Fragment(), DifficultyInterface {
     override fun onStart() {
         super.onStart()
 
-        binding.pointsTv.text = userPreference.getUserinfo("points")
+        binding.pointsTv.text = userPreference.getUserinfo("points","0")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }

@@ -34,4 +34,9 @@ class QuizViewModel @Inject constructor(val quizRepo: QuizRepo) : ViewModel() {
         quizRepo.onWrongAnswer(count)
     }
 
+
+    fun getRandomFacts(): String{
+        return quizRepo.getFacts()
+    }
+
 }

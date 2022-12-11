@@ -21,6 +21,11 @@ class UserPreference @Inject constructor (@ApplicationContext val context: Conte
         return preferences.getString(key, "").toString()
     }
 
+    fun getUserinfo(key: String, defValue: String): String{
+        return preferences.getString(key,defValue).toString()
+    }
+
+
     fun clearAll() {
         val editor = preferences.edit()
         editor.clear()

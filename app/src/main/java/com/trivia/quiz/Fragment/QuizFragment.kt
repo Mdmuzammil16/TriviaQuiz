@@ -19,7 +19,9 @@ import com.staffofyuser.staffofyuser.Api.NetworkResult
 import com.trivia.quiz.R
 import com.trivia.quiz.ViewModel.QuizViewModel
 import com.trivia.quiz.databinding.FragmentQuizBinding
+import com.trivia.quiz.utils.MusicClass
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -30,6 +32,9 @@ class QuizFragment : Fragment() {
     lateinit var buttons: Array<Button>
     val quizViewModel by activityViewModels<QuizViewModel>()
 
+
+    @Inject
+    lateinit var musicClass: MusicClass
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -105,12 +110,16 @@ class QuizFragment : Fragment() {
                     buttons[i].setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
                     buttons[i].backgroundTintList = ColorStateList.valueOf(Color.parseColor("#159f8b"))
                     controlButtons(false)
+
+                    musicClass.startSuccessBeep()
                     Handler(Looper.myLooper()!!).postDelayed({
                           resetButtons()
                         quizViewModel.onCorrect(count)
-                    }, 500)
+                    }, 1200)
 
                 }else{
+
+                    musicClass.startFailedBeep()
                     controlButtons(false)
 
                     buttons[answerIndex].setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
@@ -121,7 +130,7 @@ class QuizFragment : Fragment() {
                     Handler(Looper.myLooper()!!).postDelayed({
                         resetButtons()
                         quizViewModel.onWrong(count)
-                    }, 500)
+                    }, 1200)
 
                 }
             }

@@ -13,6 +13,7 @@ import com.trivia.quiz.InterFaces.DifficultyInterface
 import com.trivia.quiz.Models.DifficultyModel
 import com.trivia.quiz.R
 import com.trivia.quiz.databinding.DifficultyitemBinding
+import com.trivia.quiz.utils.MusicClass
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
@@ -53,6 +54,7 @@ class DifficultyAdapter constructor(val arrayList: ArrayList<DifficultyModel>,
         holder.binding!!.startBtn.setOnClickListener {
             if (!isFront){
                 difficultyInterface.getDifficulty(arrayList[position])
+
             }
 
         }
@@ -60,6 +62,7 @@ class DifficultyAdapter constructor(val arrayList: ArrayList<DifficultyModel>,
 
 
         holder.binding!!.root.setOnClickListener {
+
 
             if (isFront){
                 front_animation.setTarget(holder.binding!!.frontCard);

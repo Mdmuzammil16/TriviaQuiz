@@ -10,6 +10,7 @@ import com.trivia.quiz.Adapter.CategoryAdapter
 import com.trivia.quiz.Models.CategoryModel
 import com.trivia.quiz.R
 import com.trivia.quiz.databinding.FragmentCategoryBinding
+import com.trivia.quiz.utils.MusicClass
 import com.trivia.quiz.utils.UserPreference
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -22,6 +23,9 @@ class CategoryFragment: Fragment() {
 
     @Inject
     lateinit var userPreference: UserPreference
+
+    @Inject
+    lateinit var musicClass: MusicClass
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,7 +62,7 @@ class CategoryFragment: Fragment() {
 
 
         binding.categoryRv.layoutManager = LinearLayoutManager(requireContext())
-        binding.categoryRv.adapter = CategoryAdapter(list)
+        binding.categoryRv.adapter = CategoryAdapter(list, musicClass)
 
 
     }

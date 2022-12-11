@@ -16,6 +16,7 @@ import com.trivia.quiz.InterFaces.DifficultyInterface
 import com.trivia.quiz.Models.DifficultyModel
 import com.trivia.quiz.ViewModel.QuizViewModel
 import com.trivia.quiz.databinding.FragmentDifficultyBinding
+import com.trivia.quiz.utils.MusicClass
 import com.trivia.quiz.utils.UserPreference
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -23,12 +24,15 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class DifficultyFragment : Fragment(), DifficultyInterface {
 
-    var _binding: FragmentDifficultyBinding? = null
+    private var _binding: FragmentDifficultyBinding? = null
     val binding get() = _binding!!
-    val quizViewModel by activityViewModels<QuizViewModel>()
+    private val quizViewModel by activityViewModels<QuizViewModel>()
 
     @Inject
     lateinit var userPreference: UserPreference
+
+    @Inject
+    lateinit var musicClass: MusicClass
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,11 +66,12 @@ class DifficultyFragment : Fragment(), DifficultyInterface {
 
 
     override fun getDifficulty(model: DifficultyModel) {
+
+        musicClass.startTouchMusic()
         val category = arguments?.getString("category","")
         quizViewModel.getQuizQuestions(category.toString(),
             model.questionsCount.lowercase(),model.title.lowercase())
         bindObserver()
-
     }
 
     private fun bindObserver() {

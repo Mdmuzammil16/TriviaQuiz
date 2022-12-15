@@ -1,36 +1,45 @@
 package com.trivia.quiz.Fragment
 
+import android.app.AlertDialog
+import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
-import androidx.fragment.app.Fragment
+import android.os.CountDownTimer
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.staffofyuser.staffofyuser.Api.NetworkResult
 import com.trivia.quiz.R
 import com.trivia.quiz.ViewModel.QuizViewModel
 import com.trivia.quiz.databinding.FragmentQuizBinding
+import com.trivia.quiz.databinding.LostdialogBinding
 import com.trivia.quiz.utils.MusicClass
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.concurrent.timer
+import kotlin.concurrent.timerTask
 
 
 @AndroidEntryPoint
 class QuizFragment : Fragment() {
-    var _binding: FragmentQuizBinding? = null
-    var count = 0
-    val binding get() = _binding!!
-    lateinit var buttons: Array<Button>
-    val quizViewModel by activityViewModels<QuizViewModel>()
+    private var _binding: FragmentQuizBinding? = null
+    private var count = 0
+    private val binding get() = _binding!!
+    private lateinit var buttons: Array<Button>
+    private val quizViewModel by activityViewModels<QuizViewModel>()
 
 
     @Inject
@@ -43,33 +52,45 @@ class QuizFragment : Fragment() {
     ): View {
 
         _binding = FragmentQuizBinding.inflate(inflater, container, false)
-          return   binding.root
+          return  binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-      buttons =  arrayOf(binding.answerA, binding.answerB, binding.answerC, binding.answerD)
+         buttons =  arrayOf(binding.answerA, binding.answerB, binding.answerC, binding.answerD)
         bindObserver()
         bindQuizObserver()
 
+        countDownTimer.start()
+
     }
 
-
+    var countDownTimer = object : CountDownTimer(30000, 1000) {
+         override fun onTick(millisUntilFinished: Long) {
+            binding.timerTv.text = ""+millisUntilFinished / 1000
+        }
+        override fun onFinish() {
+           findNavController().popBackStack()
+            Toast.makeText(requireContext(), "Timeout", Toast.LENGTH_SHORT)
+        }
+    }
 
     private fun bindObserver() {
         quizViewModel.quizListLiveData.observe(viewLifecycleOwner){ response ->
-            when(response){
+            when(response) {
                 is NetworkResult.Success -> {
                     binding.countTv.text = "$count / ${response.data?.count()}"
                 }
                 is NetworkResult.Error -> {
-                    Toast.makeText(requireContext(), "failed "+response.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "failed " + response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
                 is NetworkResult.Loading -> {}
-
             }
-
         }
     }
 
@@ -93,9 +114,6 @@ class QuizFragment : Fragment() {
 
 
             }
-
-
-
         }
     }
 
@@ -112,34 +130,77 @@ class QuizFragment : Fragment() {
                     controlButtons(false)
 
                     musicClass.startSuccessBeep()
-                    Handler(Looper.myLooper()!!).postDelayed({
-                          resetButtons()
+                    lifecycleScope.launch {
+                        delay(1000)
+                        resetButtons()
                         quizViewModel.onCorrect(count)
-                    }, 1200)
-
+                        countDownTimer.start()
+                    }
                 }else{
 
                     musicClass.startFailedBeep()
                     controlButtons(false)
-
                     buttons[answerIndex].setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                    buttons[answerIndex].backgroundTintList = ColorStateList.valueOf(Color.parseColor("#159f8b"))
+                    buttons[answerIndex].backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.green))
                     buttons[i].setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                    buttons[i].backgroundTintList = ColorStateList.valueOf(Color.parseColor("#e94d4e"))
+                    buttons[i].backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.errorcolor))
+                    lifecycleScope.launch {
+                        delay(800)
+                        showAlertDialog()
 
-                    Handler(Looper.myLooper()!!).postDelayed({
-                        resetButtons()
-                        quizViewModel.onWrong(count)
-                    }, 1200)
-
+                    }
                 }
             }
         }
     }
 
 
-    fun resetButtons(){
-        buttons.forEach { it ->
+    private fun showAlertDialog(){
+
+        countDownTimer.cancel()
+        val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val binding = LostdialogBinding.inflate(inflater)
+
+
+
+
+     val dialog =   MaterialAlertDialogBuilder(requireContext(),
+            R.style.MyRounded_MaterialComponents_MaterialAlertDialog)
+            .setView(binding.root).show()
+        dialog.setCancelable(false)
+        val questionsLeft = quizViewModel.quizListLiveData.value?.data?.size?.minus(count)
+
+          val message = when(questionsLeft){
+            0 -> {
+                "You have reached this Far. Don't Let it go."
+            }
+            in 1..5 -> {
+                "Only $questionsLeft Question to  Unlock  Next Level."
+            }
+            else -> {
+                "You are doing great. Keep Playing."
+            }
+
+        }
+        binding.displayTv.text = message
+        binding.backBtn.setOnClickListener {
+            dialog.dismiss()
+            countDownTimer.cancel()
+            findNavController().popBackStack()
+        }
+
+        binding.continueBtn.setOnClickListener {
+            dialog.dismiss()
+            resetButtons()
+            countDownTimer.start()
+            quizViewModel.onWrong(count)
+        }
+
+    }
+
+
+    private fun resetButtons(){
+        buttons.forEach {
             it.backgroundTintList = null
             it.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
         }
@@ -147,7 +208,7 @@ class QuizFragment : Fragment() {
         controlButtons(true)
     }
 
-    fun controlButtons(enable: Boolean){
+   private fun controlButtons(enable: Boolean){
         buttons.forEach {
             it.isEnabled  = enable
         }

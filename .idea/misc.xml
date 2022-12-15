@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.131" />
         <entry key="app/src/main/res/drawable/ic_wave.xml" value="0.131" />
+        <entry key="app/src/main/res/drawable/outline_back.xml" value="0.133" />
         <entry key="app/src/main/res/drawable/outlinebtn.xml" value="0.131" />
         <entry key="app/src/main/res/drawable/questionback.xml" value="0.131" />
         <entry key="app/src/main/res/drawable/wave.xml" value="0.131" />
@@ -17,6 +18,7 @@
         <entry key="app/src/main/res/layout/fragment_difficulty.xml" value="0.20304107666015625" />
         <entry key="app/src/main/res/layout/fragment_quiz.xml" value="0.15752105712890618" />
         <entry key="app/src/main/res/layout/fragment_success.xml" value="0.19216461181640626" />
+        <entry key="app/src/main/res/layout/lostdialog.xml" value="0.23875885009765632" />
       </map>
     </option>
   </component>

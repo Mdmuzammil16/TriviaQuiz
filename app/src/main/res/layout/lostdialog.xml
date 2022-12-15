@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingVertical="@dimen/_25sdp"
+        android:paddingHorizontal="@dimen/_12sdp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_20sdp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/montserratbold"
+            android:layout_gravity="center"
+            android:text="Continue?"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_12sdp"
+            android:id="@+id/displayTv"
+            android:lineSpacingExtra="@dimen/_4sdp"
+            android:textColor="@color/green"
+            android:fontFamily="@font/montserratmedium"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:text="@string/next_level"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/coin"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:textSize="@dimen/_20sdp"
+                android:fontFamily="@font/montserratbold"
+                android:layout_marginLeft="@dimen/_8sdp"
+                android:textColor="@color/errorcolor"/>
+        </LinearLayout>
+
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:textColor="@color/white"
+            android:text="Continue"
+            android:fontFamily="@font/montserratmedium"
+            android:backgroundTint="@color/green"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_8sdp"
+            android:id="@+id/continueBtn"
+            android:background="@drawable/outline_back"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Back"
+                android:textColor="@color/black"
+                android:id="@+id/backBtn"
+                android:fontFamily="@font/montserratmedium"
+                android:background="@drawable/outline_back"/>
+
+
+
+
+
+    </LinearLayout>
+</layout>

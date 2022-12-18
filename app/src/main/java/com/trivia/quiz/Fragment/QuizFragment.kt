@@ -17,6 +17,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.staffofyuser.staffofyuser.Api.NetworkResult
 import com.trivia.quiz.R
 import com.trivia.quiz.ViewModel.QuizViewModel
@@ -78,12 +79,11 @@ class QuizFragment : Fragment() {
     private fun bindObserver() {
         quizViewModel.quizListLiveData.observe(viewLifecycleOwner){ response ->
             when(response) {
-                is NetworkResult.Success -> {
-
-                    binding.countTv.text = "${count.plus(1)} / ${response.data?.count()}"
-                }
+                is NetworkResult.Success ->  binding.countTv.text = "${count.plus(1)} / ${response.data?.count()}"
                 is NetworkResult.Error -> {
-                    Toast.makeText(requireContext(), "failed " + response.message, Toast.LENGTH_SHORT).show()
+                    //  Toast.makeText(requireContext(), "failed " + response.message, Toast.LENGTH_SHORT).show()
+                        Snackbar.make(binding.root, response.message.toString(), Toast.LENGTH_SHORT).show()
+                        findNavController().popBackStack()
                 }
                 is NetworkResult.Loading -> {}
             }

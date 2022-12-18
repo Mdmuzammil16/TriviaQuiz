@@ -50,6 +50,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="LvL: 100"
+                        android:id="@+id/levelTv"
                         android:fontFamily="@font/montserratbold"
                         android:textColor="@color/yellow"
                         android:textSize="@dimen/_10sdp" />
@@ -138,11 +139,11 @@
                 android:background="@drawable/profilecurv" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/difficultyRv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layoutAnimation="@anim/listanim"
-                android:id="@+id/difficultyRv"
                 android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layoutAnimation="@anim/listanim"
                 tools:listitem="@layout/difficultyitem" />
 
         </LinearLayout>

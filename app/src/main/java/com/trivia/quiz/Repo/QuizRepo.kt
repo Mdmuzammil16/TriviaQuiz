@@ -21,22 +21,18 @@ class QuizRepo @Inject constructor(private val quizApi: QuizApi, private val use
 
     private val _scoreLiveData = MutableLiveData(0)
 
-
     suspend fun getQuizQuestions(category: String,limit: String, difficulty: String){
-
         _quizListLiveData.value = NetworkResult.Loading()
         val response = quizApi.getQuestions(category,limit, difficulty)
         if(response.isSuccessful && response.body() != null){
-
             _scoreLiveData.value = 0
             _quizListLiveData.value = NetworkResult.Success(response.body()!!)
             moveToNextQuestions(0)
-
         }else{
             _quizListLiveData.value = NetworkResult.Error("Something Went Wrong")
          }
-
     }
+
 
    private fun moveToNextQuestions(count: Int){
         if ((quizListLiveData.value?.data?.count() ?: 0) > count){
@@ -68,9 +64,7 @@ class QuizRepo @Inject constructor(private val quizApi: QuizApi, private val use
             moveToNextQuestions(count)
         }
     }
-
-
-    fun incrementLevel(){
+    private fun incrementLevel(){
         val previousLevel = userPreference.getUserinfo("level", "0").toInt()
         val updatedLevel = previousLevel.plus(1)
         userPreference.saveUserinfo("level", updatedLevel.toString())
@@ -101,6 +95,4 @@ class QuizRepo @Inject constructor(private val quizApi: QuizApi, private val use
         val randomNumber = random.random()
         return "Did you know ${listOfFacts[randomNumber]}"
     }
-
-
 }

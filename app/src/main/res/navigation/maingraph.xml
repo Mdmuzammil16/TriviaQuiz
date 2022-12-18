@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/maingraph"
-    app:startDestination="@id/categoryFragment2">
+    app:startDestination="@id/avatorFragment">
     <fragment
         android:id="@+id/quizFragment"
         android:name="com.trivia.quiz.Fragment.QuizFragment"
@@ -39,4 +39,25 @@
         android:id="@+id/successFragment2"
         android:name="com.trivia.quiz.Fragment.SuccessFragment"
         android:label="SuccessFragment" />
+    <fragment
+        android:id="@+id/avatorFragment"
+        android:name="com.trivia.quiz.Fragment.AvatorFragment"
+        android:label="fragment_avator"
+        tools:layout="@layout/fragment_avator" >
+        <action
+            android:id="@+id/action_avatorFragment_to_nameFragment"
+            app:destination="@id/nameFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/nameFragment"
+        android:name="com.trivia.quiz.Fragment.NameFragment"
+        android:label="fragment_name"
+        tools:layout="@layout/fragment_name" >
+        <action
+            android:id="@+id/action_nameFragment_to_categoryFragment2"
+            app:destination="@id/categoryFragment2"
+            app:popUpTo="@id/avatorFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

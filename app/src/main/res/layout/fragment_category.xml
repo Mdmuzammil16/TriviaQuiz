@@ -32,6 +32,7 @@
                 <com.mikhaellopez.circularimageview.CircularImageView
                     android:layout_width="@dimen/_40sdp"
                     android:layout_height="@dimen/_40sdp"
+                    android:id="@+id/profileIv"
                     android:src="@drawable/person" />
 
                 <LinearLayout
@@ -52,6 +53,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="LvL: 100"
+                        android:id="@+id/levelTv"
                         android:fontFamily="@font/montserratbold"
                         android:textColor="@color/yellow"
                         android:textSize="@dimen/_10sdp"/>
@@ -133,7 +135,7 @@
             android:background="@drawable/sheetcurve">
 
 
-        <LinearLayout
+        <View
             android:layout_width="@dimen/_60sdp"
             android:layout_height="@dimen/_8sdp"
             android:layout_gravity="center"

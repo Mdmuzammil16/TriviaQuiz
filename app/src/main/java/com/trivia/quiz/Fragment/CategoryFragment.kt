@@ -70,7 +70,9 @@ class CategoryFragment: Fragment() {
     override fun onStart() {
         super.onStart()
 
-       binding.pointsTv.text = userPreference.getUserinfo("points","0")
+        binding.pointsTv.text = userPreference.getUserinfo("points","0")
+        binding.levelTv.text = "Lvl: ${userPreference.getUserinfo("level","0")}"
+        binding.profileIv.setImageResource(userPreference.getUserinfo("image").toInt())
     }
 
     override fun onDestroy() {

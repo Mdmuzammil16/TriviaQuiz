@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="@color/green"
+        tools:context=".Fragment.AvatorFragment">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Choose Your Avator:"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_22sdp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sdp"
+            android:fontFamily="@font/montserratbold"/>
+
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_150sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:id="@+id/currentIv"
+            android:src="@drawable/redavator"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:backgroundTint="#D7FFFFFF"
+        android:background="@drawable/sheetcurve">
+
+        <View
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_8sdp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:backgroundTint="#4BC5C5C5"
+            android:background="@drawable/profilecurv"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            tools:itemCount="3"
+            android:layout_marginVertical="@dimen/_20sdp"
+            android:id="@+id/avatorRv"
+            android:layoutAnimation="@anim/listanim"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/avatoritem" />
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:padding="@dimen/_12sdp"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:background="@drawable/outlinebtn"
+                android:backgroundTint="@color/green"
+                android:text="SAVE"
+                android:fontFamily="@font/montserratbold"
+                android:layout_gravity="bottom"
+                android:textColor="@color/white"
+                android:id="@+id/saveBtn"
+                android:layout_height="@dimen/_36sdp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+    </LinearLayout>
+</layout>

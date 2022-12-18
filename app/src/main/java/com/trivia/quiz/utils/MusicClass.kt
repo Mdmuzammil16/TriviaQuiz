@@ -5,8 +5,9 @@ import android.media.MediaPlayer
 import com.trivia.quiz.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
-
+@Singleton
 class MusicClass @Inject constructor(@ApplicationContext val context: Context){
 
     fun startTouchMusic(){

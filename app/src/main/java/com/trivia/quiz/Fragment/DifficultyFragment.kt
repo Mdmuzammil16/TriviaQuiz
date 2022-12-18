@@ -95,6 +95,8 @@ class DifficultyFragment : Fragment(), DifficultyInterface {
         super.onStart()
 
         binding.pointsTv.text = userPreference.getUserinfo("points","0")
+        binding.levelTv.text = userPreference.getUserinfo("level","0")
+
     }
 
     override fun onDestroyView() {

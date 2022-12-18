@@ -18,7 +18,7 @@ class SuccessFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View  {
 
         _binding = FragmentSuccessBinding.inflate(inflater, container, false)
         return binding.root

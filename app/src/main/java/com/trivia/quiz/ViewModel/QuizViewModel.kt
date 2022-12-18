@@ -13,7 +13,7 @@ class QuizViewModel @Inject constructor(val quizRepo: QuizRepo) : ViewModel() {
 
     val quizListLiveData get() = quizRepo.quizListLiveData
     val quizModelLiveData get() = quizRepo.quizModelLiveData
-    val quizCountLiveData get() = quizRepo.scoreLiveData
+
 
     fun getQuizQuestions(category: String,limit: String, diffulty: String){
         viewModelScope.launch {
@@ -21,10 +21,6 @@ class QuizViewModel @Inject constructor(val quizRepo: QuizRepo) : ViewModel() {
         }
     }
 
-
-    fun moveToNextQuestion(count: Int){
-        quizRepo.moveToNextQuestions(count)
-    }
 
     fun onCorrect(count: Int){
         quizRepo.onCorrectAnswer(count)

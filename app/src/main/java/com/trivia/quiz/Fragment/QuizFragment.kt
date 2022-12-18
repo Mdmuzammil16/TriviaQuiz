@@ -1,19 +1,17 @@
 package com.trivia.quiz.Fragment
 
-import android.app.AlertDialog
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.text.Html
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -29,8 +27,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.concurrent.timer
-import kotlin.concurrent.timerTask
 
 
 @AndroidEntryPoint
@@ -58,7 +54,7 @@ class QuizFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-         buttons =  arrayOf(binding.answerA, binding.answerB, binding.answerC, binding.answerD)
+          buttons =  arrayOf(binding.answerA, binding.answerB, binding.answerC, binding.answerD)
         bindObserver()
         bindQuizObserver()
 
@@ -71,8 +67,11 @@ class QuizFragment : Fragment() {
             binding.timerTv.text = ""+millisUntilFinished / 1000
         }
         override fun onFinish() {
-           findNavController().popBackStack()
-            Toast.makeText(requireContext(), "Timeout", Toast.LENGTH_SHORT)
+            lifecycleScope.launch {
+                findNavController().popBackStack()
+                Toast.makeText(requireContext(), "Timeout", Toast.LENGTH_SHORT)
+            }
+
         }
     }
 
@@ -80,14 +79,11 @@ class QuizFragment : Fragment() {
         quizViewModel.quizListLiveData.observe(viewLifecycleOwner){ response ->
             when(response) {
                 is NetworkResult.Success -> {
-                    binding.countTv.text = "$count / ${response.data?.count()}"
+
+                    binding.countTv.text = "${count.plus(1)} / ${response.data?.count()}"
                 }
                 is NetworkResult.Error -> {
-                    Toast.makeText(
-                        requireContext(),
-                        "failed " + response.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(requireContext(), "failed " + response.message, Toast.LENGTH_SHORT).show()
                 }
                 is NetworkResult.Loading -> {}
             }
@@ -99,16 +95,19 @@ class QuizFragment : Fragment() {
 
             when(response){
                 is NetworkResult.Success -> {
+                    binding.countTv.text =
+                        "${count.plus(1)} / ${quizViewModel.quizListLiveData.value?.data?.count()}"
+
                     binding.questionTv.text = response.data?.question
                     val answers = response.data?.incorrectAnswers!!
                     val random = 0..answers.size
                     val randomNumber = random.random()
                     answers.add(randomNumber,response.data.correctAnswer)
-                    setUpAnswers(answers,
-                        response.data.correctAnswer, randomNumber)
+                    setUpAnswers(answers, response.data.correctAnswer, randomNumber)
                 }
                 is NetworkResult.Error -> {
                     findNavController().navigate(R.id.action_quizFragment_to_successFragment2)
+                    countDownTimer.cancel()
                 }
                 is NetworkResult.Loading -> {}
 
@@ -169,8 +168,8 @@ class QuizFragment : Fragment() {
             .setView(binding.root).show()
         dialog.setCancelable(false)
         val questionsLeft = quizViewModel.quizListLiveData.value?.data?.size?.minus(count)
-
-          val message = when(questionsLeft){
+        Log.d("fazilApp", questionsLeft.toString())
+        val message = when(questionsLeft){
             0 -> {
                 "You have reached this Far. Don't Let it go."
             }
@@ -182,6 +181,7 @@ class QuizFragment : Fragment() {
             }
 
         }
+
         binding.displayTv.text = message
         binding.backBtn.setOnClickListener {
             dialog.dismiss()
@@ -195,7 +195,6 @@ class QuizFragment : Fragment() {
             countDownTimer.start()
             quizViewModel.onWrong(count)
         }
-
     }
 
 
@@ -204,7 +203,6 @@ class QuizFragment : Fragment() {
             it.backgroundTintList = null
             it.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
         }
-        binding.countTv.text = "$count / ${quizViewModel.quizListLiveData.value?.data?.count()}"
         controlButtons(true)
     }
 
@@ -212,6 +210,11 @@ class QuizFragment : Fragment() {
         buttons.forEach {
             it.isEnabled  = enable
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        countDownTimer.cancel()
     }
 
 }

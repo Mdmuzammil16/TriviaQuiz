@@ -11,8 +11,7 @@ import com.trivia.quiz.utils.UserPreference
 import javax.inject.Inject
 import kotlin.random.Random
 
-class QuizRepo @Inject constructor(private val quizApi: QuizApi,
-                                   private val userPreference: UserPreference) {
+class QuizRepo @Inject constructor(private val quizApi: QuizApi, private val userPreference: UserPreference) {
 
     private val _quizListLiveData = MutableLiveData<NetworkResult<QuizResponse>>()
     val quizListLiveData : LiveData<NetworkResult<QuizResponse>> get() = _quizListLiveData
@@ -21,7 +20,6 @@ class QuizRepo @Inject constructor(private val quizApi: QuizApi,
     val quizModelLiveData : LiveData<NetworkResult<QuizResponseItem>> get() = _quizModelLiveData
 
     private val _scoreLiveData = MutableLiveData(0)
-    val scoreLiveData: LiveData<Int> = _scoreLiveData
 
 
     suspend fun getQuizQuestions(category: String,limit: String, difficulty: String){
@@ -40,13 +38,13 @@ class QuizRepo @Inject constructor(private val quizApi: QuizApi,
 
     }
 
-    fun moveToNextQuestions(count: Int){
-
+   private fun moveToNextQuestions(count: Int){
         if ((quizListLiveData.value?.data?.count() ?: 0) > count){
             _quizModelLiveData.value = quizListLiveData.value?.data?.get(count)
                 ?.let { NetworkResult.Success(it) }
         }else{
             _quizModelLiveData.value = NetworkResult.Error("Quiz Completed")
+            incrementLevel()
         }
     }
 
@@ -60,9 +58,23 @@ class QuizRepo @Inject constructor(private val quizApi: QuizApi,
     }
 
     fun onWrongAnswer(count: Int){
-        moveToNextQuestions(count)
+        val previousPoints = userPreference.getUserinfo("points","0").toInt()
+        if (previousPoints < 5){
+            _quizListLiveData.value = NetworkResult.Error("No Coins")
+        }else{
+            val updateValue = previousPoints.minus(5)
+            _scoreLiveData.value = updateValue
+             userPreference.saveUserinfo("points",updateValue.toString())
+            moveToNextQuestions(count)
+        }
     }
 
+
+    fun incrementLevel(){
+        val previousLevel = userPreference.getUserinfo("level", "0").toInt()
+        val updatedLevel = previousLevel.plus(1)
+        userPreference.saveUserinfo("level", updatedLevel.toString())
+    }
 
     fun getFacts() : String{
         val listOfFacts = arrayListOf(

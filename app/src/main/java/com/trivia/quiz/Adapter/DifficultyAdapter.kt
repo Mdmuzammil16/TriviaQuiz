@@ -71,17 +71,17 @@ class DifficultyAdapter constructor(val arrayList: ArrayList<DifficultyModel>,
                 back_animation.start()
                 isFront = false
             }else{
-                front_animation.setTarget(holder.binding!!.cardBack);
+                front_animation.setTarget(holder.binding.cardBack);
                 back_animation.setTarget(holder.binding!!.frontCard);
                 back_animation.start()
                 front_animation.start()
                 isFront = true
 
             }
-            holder.binding!!.root.isEnabled = false
+            holder.binding.root.isEnabled = false
             Handler(Looper.getMainLooper()).postDelayed({
-                holder.binding!!.root.isEnabled = true
-                holder.binding!!.startBtn.isEnabled = true
+                holder.binding.root.isEnabled = true
+                holder.binding.startBtn.isEnabled = true
             },1000)
 
         }
@@ -92,13 +92,5 @@ class DifficultyAdapter constructor(val arrayList: ArrayList<DifficultyModel>,
         return arrayList.size
     }
 
-    inner class ViewHolder(difficultyitemBinding: DifficultyitemBinding):
-        RecyclerView.ViewHolder(difficultyitemBinding.root) {
-
-            var binding: DifficultyitemBinding? = null
-        init {
-            binding = difficultyitemBinding
-        }
-
-    }
+    class ViewHolder(val binding: DifficultyitemBinding): RecyclerView.ViewHolder(binding.root)
 }

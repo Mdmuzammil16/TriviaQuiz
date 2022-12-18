@@ -1,42 +1,50 @@
 package com.trivia.quiz.Fragment
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.trivia.quiz.databinding.FragmentSuccessBinding
+import com.trivia.quiz.R
+import com.trivia.quiz.databinding.FragmentSplashBinding
 import com.trivia.quiz.utils.UserPreference
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SuccessFragment: Fragment() {
+class SplashFragment : Fragment() {
+
+    var _binding: FragmentSplashBinding? = null
+    val binding get() = _binding!!
 
     @Inject
     lateinit var userPreference: UserPreference
-    var _binding: FragmentSuccessBinding?  = null
-    val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View  {
-
-        _binding = FragmentSuccessBinding.inflate(inflater, container, false)
+    ): View {
+        _binding = FragmentSplashBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        lifecycleScope.launch {
+            delay(1500)
+            val name = userPreference.getUserinfo("name")
+            if (!name.isBlank()){
+                findNavController().navigate(R.id.action_splashFragment_to_categoryFragment2)
+            }else{
+                findNavController().navigate(R.id.action_global_avatorFragment)
+            }
 
-        binding.coinsTv.text = "Coins: ${userPreference.getUserinfo("points")}"
-        binding.levelTv.text = "Level: ${userPreference.getUserinfo("level")}"
-        binding.playBtn.setOnClickListener {
-            findNavController().popBackStack()
         }
     }
 

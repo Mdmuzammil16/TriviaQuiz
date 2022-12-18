@@ -47,16 +47,25 @@ class AvatorFragment : Fragment(), AvatorInterface {
 
 
         binding.saveBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_avatorFragment_to_nameFragment)
+            val imageBundle = Bundle()
+            imageBundle.putInt("image", selectedImage.toInt())
+            findNavController().navigate(R.id.action_avatorFragment_to_nameFragment, imageBundle)
 
-            userPreference.saveUserinfo("image", selectedImage)
         }
 
     }
+
+
+
 
     override fun getAvatorImage(image: Int) {
         binding.currentIv.setImageResource(image)
         selectedImage = image.toString()
     }
 
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

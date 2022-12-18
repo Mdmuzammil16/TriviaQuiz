@@ -10,6 +10,7 @@
         tools:context=".Fragment.DifficultyFragment">
 
         <FrameLayout
+            android:id="@+id/profileLayout"
             android:layout_width="match_parent"
             android:paddingVertical="@dimen/_6sdp"
             android:paddingHorizontal="@dimen/_12sdp"
@@ -29,6 +30,7 @@
 
                 <com.mikhaellopez.circularimageview.CircularImageView
                     android:layout_width="@dimen/_40sdp"
+                    android:id="@+id/profileIv"
                     android:layout_height="@dimen/_40sdp"
                     android:src="@drawable/person" />
 
@@ -41,7 +43,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Fazil"
+                        android:maxLength="12"
+                       android:maxLines="1"
+                        android:ellipsize="end"
+                        android:id="@+id/nameTv"
                         android:fontFamily="@font/montserratmedium"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_14sdp" />
@@ -49,7 +54,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="LvL: 100"
+
                         android:id="@+id/levelTv"
                         android:fontFamily="@font/montserratbold"
                         android:textColor="@color/yellow"

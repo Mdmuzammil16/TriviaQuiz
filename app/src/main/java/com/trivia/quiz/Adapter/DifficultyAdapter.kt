@@ -37,21 +37,21 @@ class DifficultyAdapter constructor(val arrayList: ArrayList<DifficultyModel>,
         val scale = activity.resources.displayMetrics.density
 
 
-        holder.binding!!.frontCard.cameraDistance = 8000 * scale
-        holder.binding!!.cardBack.cameraDistance = 8000 * scale
+        holder.binding.frontCard.cameraDistance = 8000 * scale
+        holder.binding.cardBack.cameraDistance = 8000 * scale
 
       val   front_animation = AnimatorInflater.loadAnimator(activity, R.animator.front_anim) as AnimatorSet
       val  back_animation = AnimatorInflater.loadAnimator(activity, R.animator.back_anim) as AnimatorSet
 
-        holder.binding!!.difficultyIv.setImageResource(arrayList[position].image)
-        holder.binding!!.difficultyTv.text = arrayList[position].title
-        holder.binding!!.difficultyLevelTv.text = "Level Increment: ${arrayList[position].maxLevel}"
-        holder.binding!!.questionCountTv.text = "Questions: ${arrayList[position].questionsCount}"
+        holder.binding.difficultyIv.setImageResource(arrayList[position].image)
+        holder.binding.difficultyTv.text = arrayList[position].title
+        holder.binding.difficultyLevelTv.text = "Level Increment: ${arrayList[position].maxLevel}"
+        holder.binding.questionCountTv.text = "Questions: ${arrayList[position].questionsCount}"
 
 
-        holder.binding!!.factsTv.text = arrayList[position].facts
+        holder.binding.factsTv.text = arrayList[position].facts
         var isFront = true
-        holder.binding!!.startBtn.setOnClickListener {
+        holder.binding.startBtn.setOnClickListener {
             if (!isFront){
                 difficultyInterface.getDifficulty(arrayList[position])
 
@@ -61,18 +61,18 @@ class DifficultyAdapter constructor(val arrayList: ArrayList<DifficultyModel>,
 
 
 
-        holder.binding!!.root.setOnClickListener {
+        holder.binding.root.setOnClickListener {
 
 
             if (isFront){
-                front_animation.setTarget(holder.binding!!.frontCard);
-                back_animation.setTarget(holder.binding!!.cardBack);
+                front_animation.setTarget(holder.binding.frontCard);
+                back_animation.setTarget(holder.binding.cardBack);
                 front_animation.start()
                 back_animation.start()
                 isFront = false
             }else{
                 front_animation.setTarget(holder.binding.cardBack);
-                back_animation.setTarget(holder.binding!!.frontCard);
+                back_animation.setTarget(holder.binding.frontCard);
                 back_animation.start()
                 front_animation.start()
                 isFront = true

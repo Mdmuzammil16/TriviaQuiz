@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.trivia.quiz.Adapter.CategoryAdapter
 import com.trivia.quiz.Models.CategoryModel
@@ -60,6 +61,10 @@ class CategoryFragment: Fragment() {
         )
 
 
+        binding.profileLayout.setOnClickListener {
+            findNavController().navigate(R.id.action_global_avatorFragment)
+        }
+
 
         binding.categoryRv.layoutManager = LinearLayoutManager(requireContext())
         binding.categoryRv.adapter = CategoryAdapter(list, musicClass)
@@ -73,6 +78,7 @@ class CategoryFragment: Fragment() {
         binding.pointsTv.text = userPreference.getUserinfo("points","0")
         binding.levelTv.text = "Lvl: ${userPreference.getUserinfo("level","0")}"
         binding.profileIv.setImageResource(userPreference.getUserinfo("image").toInt())
+        binding.nameTv.text = userPreference.getUserinfo("name", "")
     }
 
     override fun onDestroy() {

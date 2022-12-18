@@ -19,10 +19,8 @@ class NameFragment: Fragment() {
 
     var _binding: FragmentNameBinding? = null
     val binding get() = _binding!!
-
     @Inject
     lateinit var userPreference: UserPreference
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,14 +34,24 @@ class NameFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val image = arguments?.getInt("image",0) ?: 0
+        binding.selectedAvatorIv.setImageResource(image)
         binding.saveBtn.setOnClickListener {
             val name = binding.nameEt.text.toString()
-            if (name.isBlank()){
-                Toast.makeText(requireContext(), "Please Enter Your Name", Toast.LENGTH_SHORT).show()
-            }else{
-                userPreference.saveUserinfo("name", name)
-                findNavController().navigate(R.id.action_nameFragment_to_categoryFragment2)
-            }
+            addNameToPref(name, image.toString())
+        }
+
+        binding.nameEt.setText(userPreference.getUserinfo("name",""))
+    }
+
+    private fun addNameToPref(name: String, image: String) {
+        if (name.isBlank()){
+            Toast.makeText(requireContext(), "Please Enter Your Name", Toast.LENGTH_SHORT).show()
+        }else{
+            userPreference.saveUserinfo("name", name)
+            userPreference.saveUserinfo("image", image)
+            findNavController().navigate(R.id.action_nameFragment_to_categoryFragment2)
+
         }
     }
 }

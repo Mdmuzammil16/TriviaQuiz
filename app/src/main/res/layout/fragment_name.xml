@@ -20,10 +20,11 @@
             <ImageView
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="@dimen/_120sdp"
+                android:id="@+id/selectedAvatorIv"
                 android:layout_marginVertical="@dimen/_40sdp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/_20sdp"
-                android:src="@drawable/person" />
+                android:src="@drawable/redavator" />
 
         </LinearLayout>
 

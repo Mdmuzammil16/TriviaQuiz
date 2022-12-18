@@ -53,15 +53,16 @@ class DifficultyFragment : Fragment(), DifficultyInterface {
 
         binding.difficultyRv.layoutManager = LinearLayoutManager(requireContext())
         val list = arrayListOf<DifficultyModel>(
-            DifficultyModel("Easy", "10", "1",R.drawable.easy, quizViewModel.getRandomFacts()),
-            DifficultyModel("Medium", "15", "3", R.drawable.medium, quizViewModel.getRandomFacts()),
-            DifficultyModel("Hard", "25", "5", R.drawable.hard, quizViewModel.getRandomFacts())
+            DifficultyModel("Easy", "5", "1",R.drawable.easy, quizViewModel.getRandomFacts()),
+            DifficultyModel("Medium", "10", "3", R.drawable.medium, quizViewModel.getRandomFacts()),
+            DifficultyModel("Hard", "20", "5", R.drawable.hard, quizViewModel.getRandomFacts())
         )
 
-        binding.difficultyRv.adapter = DifficultyAdapter(list,
-            this,
-            requireActivity())
+        binding.profileLayout.setOnClickListener{
+            findNavController().navigate(R.id.action_global_avatorFragment)
+        }
 
+        binding.difficultyRv.adapter = DifficultyAdapter(list, this, requireActivity())
     }
 
 
@@ -95,7 +96,10 @@ class DifficultyFragment : Fragment(), DifficultyInterface {
         super.onStart()
 
         binding.pointsTv.text = userPreference.getUserinfo("points","0")
-        binding.levelTv.text = userPreference.getUserinfo("level","0")
+        val level = userPreference.getUserinfo("level","0")
+        binding.levelTv.text = "Lvl: $level"
+        binding.nameTv.text = userPreference.getUserinfo("name","")
+        binding.profileIv.setImageResource(userPreference.getUserinfo("image").toInt())
 
     }
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
 
@@ -10,22 +11,26 @@
         android:orientation="vertical"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_100sdp"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/_32sdp"
-            android:src="@drawable/luck" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_height="@dimen/_150sdp"
+            android:layout_width="@dimen/_150sdp"
+            app:lottie_rawRes="@raw/winneranim"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_20sdp" />
+
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="12 / 15"
+            android:text="You Won!"
             android:layout_marginTop="@dimen/_12sdp"
             android:textColor="@color/white"
             android:textSize="@dimen/_24sdp"
-            android:fontFamily="@font/montserratmedium" />
+            android:fontFamily="@font/montserratbold" />
 
 
         <LinearLayout
@@ -72,9 +77,10 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
                         android:fontFamily="@font/montserratbold"
+                        android:id="@+id/coinsTv"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:textSize="@dimen/_14sdp"
-                       android:text="Coins: 12" />
+                        />
 
                 </LinearLayout>
 
@@ -93,7 +99,7 @@
                     <ImageView
                         android:layout_width="@dimen/_100sdp"
                         android:layout_height="@dimen/_40sdp"
-                        android:src="@drawable/timer"/>
+                        android:src="@drawable/easy"/>
 
 
                     <TextView
@@ -103,7 +109,8 @@
                         android:fontFamily="@font/montserratbold"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:textSize="@dimen/_14sdp"
-                        android:text="Time: 2:00" />
+                        android:id="@+id/levelTv"
+                        />
                 </LinearLayout>
             </LinearLayout>
 
@@ -112,7 +119,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Better luck next Time. You have to answer all the answers Correctly to Level Up"
+                android:text="Congratulations, You Have Leveled up"
                 android:textAlignment="center"
                 android:padding="@dimen/_12sdp"
                 android:layout_marginHorizontal="@dimen/_12sdp"

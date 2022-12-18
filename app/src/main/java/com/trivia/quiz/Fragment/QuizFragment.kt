@@ -24,6 +24,7 @@ import com.trivia.quiz.ViewModel.QuizViewModel
 import com.trivia.quiz.databinding.FragmentQuizBinding
 import com.trivia.quiz.databinding.LostdialogBinding
 import com.trivia.quiz.utils.MusicClass
+import com.trivia.quiz.utils.UserPreference
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -38,6 +39,10 @@ class QuizFragment : Fragment() {
     private lateinit var buttons: Array<Button>
     private val quizViewModel by activityViewModels<QuizViewModel>()
 
+
+
+    @Inject
+    lateinit var userPreference: UserPreference
 
     @Inject
     lateinit var musicClass: MusicClass
@@ -59,11 +64,14 @@ class QuizFragment : Fragment() {
         bindObserver()
         bindQuizObserver()
 
+        binding.nameTv.text = userPreference.getUserinfo("name")
+        binding.levelTv.text = "Lvl: ${userPreference.getUserinfo("level")}"
+
         countDownTimer.start()
 
     }
 
-    var countDownTimer = object : CountDownTimer(30000, 1000) {
+    private var countDownTimer = object : CountDownTimer(30000, 1000) {
          override fun onTick(millisUntilFinished: Long) {
             binding.timerTv.text = ""+millisUntilFinished / 1000
         }
@@ -117,7 +125,6 @@ class QuizFragment : Fragment() {
     }
 
     private fun setUpAnswers(answers: ArrayList<String>, correctAnswer: String, answerIndex: Int) {
-
         for (i in 0..3){
             buttons[i].backgroundTintList = null
             buttons[i].text = answers[i]
@@ -206,6 +213,8 @@ class QuizFragment : Fragment() {
         controlButtons(true)
     }
 
+
+
    private fun controlButtons(enable: Boolean){
         buttons.forEach {
             it.isEnabled  = enable
@@ -214,7 +223,13 @@ class QuizFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
+
         countDownTimer.cancel()
     }
 
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

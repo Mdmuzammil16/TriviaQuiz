@@ -8,6 +8,7 @@ import com.trivia.quiz.R
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.staffofyuser.staffofyuser.Api.NetworkResult
@@ -49,8 +50,7 @@ class DifficultyFragment : Fragment(), DifficultyInterface {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
+ 
         binding.difficultyRv.layoutManager = LinearLayoutManager(requireContext())
         val list = arrayListOf<DifficultyModel>(
             DifficultyModel("Easy", "5", "1",R.drawable.easy, quizViewModel.getRandomFacts()),

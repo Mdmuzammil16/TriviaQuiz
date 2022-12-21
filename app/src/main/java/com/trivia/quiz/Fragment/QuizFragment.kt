@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -38,8 +39,12 @@ class QuizFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var buttons: Array<Button>
     private val quizViewModel by activityViewModels<QuizViewModel>()
+    var isPaused: Boolean = false
 
+    var isFirst: Boolean = true
+    var remaingTime: Long = 30000
 
+     var dialog: AlertDialog? = null
 
     @Inject
     lateinit var userPreference: UserPreference
@@ -52,7 +57,6 @@ class QuizFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentQuizBinding.inflate(inflater, container, false)
           return  binding.root
     }
@@ -61,19 +65,27 @@ class QuizFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
           buttons =  arrayOf(binding.answerA, binding.answerB, binding.answerC, binding.answerD)
-        bindObserver()
-        bindQuizObserver()
+          bindObserver()
+          bindQuizObserver()
 
         binding.nameTv.text = userPreference.getUserinfo("name")
         binding.levelTv.text = "Lvl: ${userPreference.getUserinfo("level")}"
+
 
         countDownTimer.start()
 
     }
 
-    private var countDownTimer = object : CountDownTimer(30000, 1000) {
+    private var countDownTimer = object : CountDownTimer(remaingTime, 1000) {
          override fun onTick(millisUntilFinished: Long) {
-            binding.timerTv.text = ""+millisUntilFinished / 1000
+             Log.d("fazilApp", "timeer "+millisUntilFinished)
+             if (isPaused){
+               //  cancel()
+             }else{
+                 binding.timerTv.text = ""+millisUntilFinished / 1000
+                 remaingTime = millisUntilFinished
+             }
+
         }
         override fun onFinish() {
             lifecycleScope.launch {
@@ -89,7 +101,6 @@ class QuizFragment : Fragment() {
             when(response) {
                 is NetworkResult.Success ->  binding.countTv.text = "${count.plus(1)} / ${response.data?.count()}"
                 is NetworkResult.Error -> {
-                    //  Toast.makeText(requireContext(), "failed " + response.message, Toast.LENGTH_SHORT).show()
                         Snackbar.make(binding.root, response.message.toString(), Toast.LENGTH_SHORT).show()
                         findNavController().popBackStack()
                 }
@@ -167,13 +178,10 @@ class QuizFragment : Fragment() {
         val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val binding = LostdialogBinding.inflate(inflater)
 
-
-
-
-     val dialog =   MaterialAlertDialogBuilder(requireContext(),
+      dialog =   MaterialAlertDialogBuilder(requireContext(),
             R.style.MyRounded_MaterialComponents_MaterialAlertDialog)
             .setView(binding.root).show()
-        dialog.setCancelable(false)
+        dialog?.setCancelable(false)
         val questionsLeft = quizViewModel.quizListLiveData.value?.data?.size?.minus(count)
         Log.d("fazilApp", questionsLeft.toString())
         val message = when(questionsLeft){
@@ -191,13 +199,13 @@ class QuizFragment : Fragment() {
 
         binding.displayTv.text = message
         binding.backBtn.setOnClickListener {
-            dialog.dismiss()
+            dialog?.dismiss()
             countDownTimer.cancel()
             findNavController().popBackStack()
         }
 
         binding.continueBtn.setOnClickListener {
-            dialog.dismiss()
+            dialog?.dismiss()
             resetButtons()
             countDownTimer.start()
             quizViewModel.onWrong(count)
@@ -223,8 +231,14 @@ class QuizFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
+        isPaused = true
+        dialog?.dismiss()
+    }
 
-        countDownTimer.cancel()
+
+    override fun onStart() {
+        super.onStart()
+         isPaused = false
     }
 
 

@@ -40,7 +40,12 @@ class QuizRepo @Inject constructor(private val quizApi: QuizApi, private val use
                 ?.let { NetworkResult.Success(it) }
         }else{
             _quizModelLiveData.value = NetworkResult.Error("Quiz Completed")
-            incrementLevel()
+            when(count){
+                5 ->   incrementLevel(1)
+                10 -> incrementLevel(3)
+                20 -> incrementLevel(5)
+            }
+
         }
     }
 
@@ -64,9 +69,9 @@ class QuizRepo @Inject constructor(private val quizApi: QuizApi, private val use
             moveToNextQuestions(count)
         }
     }
-    private fun incrementLevel(){
+    private fun incrementLevel(nextLvl: Int){
         val previousLevel = userPreference.getUserinfo("level", "0").toInt()
-        val updatedLevel = previousLevel.plus(1)
+        val updatedLevel = previousLevel.plus(nextLvl)
         userPreference.saveUserinfo("level", updatedLevel.toString())
     }
 

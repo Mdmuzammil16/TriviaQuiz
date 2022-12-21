@@ -70,31 +70,11 @@ class QuizFragment : Fragment() {
 
         binding.nameTv.text = userPreference.getUserinfo("name")
         binding.levelTv.text = "Lvl: ${userPreference.getUserinfo("level")}"
-
-
-        countDownTimer.start()
+        binding.timerTv.start()
 
     }
 
-    private var countDownTimer = object : CountDownTimer(remaingTime, 1000) {
-         override fun onTick(millisUntilFinished: Long) {
-             Log.d("fazilApp", "timeer "+millisUntilFinished)
-             if (isPaused){
-               //  cancel()
-             }else{
-                 binding.timerTv.text = ""+millisUntilFinished / 1000
-                 remaingTime = millisUntilFinished
-             }
 
-        }
-        override fun onFinish() {
-            lifecycleScope.launch {
-                findNavController().popBackStack()
-                Toast.makeText(requireContext(), "Timeout", Toast.LENGTH_SHORT)
-            }
-
-        }
-    }
 
     private fun bindObserver() {
         quizViewModel.quizListLiveData.observe(viewLifecycleOwner){ response ->
@@ -126,7 +106,7 @@ class QuizFragment : Fragment() {
                 }
                 is NetworkResult.Error -> {
                     findNavController().navigate(R.id.action_quizFragment_to_successFragment2)
-                    countDownTimer.cancel()
+                    //countDownTimer.cancel()
                 }
                 is NetworkResult.Loading -> {}
 
@@ -151,7 +131,7 @@ class QuizFragment : Fragment() {
                         delay(1000)
                         resetButtons()
                         quizViewModel.onCorrect(count)
-                        countDownTimer.start()
+                        //countDownTimer.start()
                     }
                 }else{
 
@@ -174,7 +154,7 @@ class QuizFragment : Fragment() {
 
     private fun showAlertDialog(){
 
-        countDownTimer.cancel()
+        //countDownTimer.cancel()
         val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val binding = LostdialogBinding.inflate(inflater)
 
@@ -200,17 +180,19 @@ class QuizFragment : Fragment() {
         binding.displayTv.text = message
         binding.backBtn.setOnClickListener {
             dialog?.dismiss()
-            countDownTimer.cancel()
+            //countDownTimer.cancel()
             findNavController().popBackStack()
         }
 
         binding.continueBtn.setOnClickListener {
             dialog?.dismiss()
             resetButtons()
-            countDownTimer.start()
+            //countDownTimer.start()
             quizViewModel.onWrong(count)
         }
     }
+
+
 
 
     private fun resetButtons(){

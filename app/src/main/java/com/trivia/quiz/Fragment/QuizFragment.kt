@@ -39,12 +39,9 @@ class QuizFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var buttons: Array<Button>
     private val quizViewModel by activityViewModels<QuizViewModel>()
-    var isPaused: Boolean = false
 
-    var isFirst: Boolean = true
-    var remaingTime: Long = 30000
 
-     var dialog: AlertDialog? = null
+    var dialog: AlertDialog? = null
 
     @Inject
     lateinit var userPreference: UserPreference
@@ -52,10 +49,8 @@ class QuizFragment : Fragment() {
     @Inject
     lateinit var musicClass: MusicClass
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentQuizBinding.inflate(inflater, container, false)
           return  binding.root
@@ -213,14 +208,12 @@ class QuizFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        isPaused = true
         dialog?.dismiss()
     }
 
 
     override fun onStart() {
         super.onStart()
-         isPaused = false
     }
 
 

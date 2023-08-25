@@ -22,9 +22,7 @@ class QuizViewModel @Inject constructor(private val quizRepo: QuizRepo) : ViewMo
     }
 
 
-    fun onCorrect(count: Int){
-        quizRepo.onCorrectAnswer(count)
-    }
+    fun onCorrect(count: Int){ quizRepo.onCorrectAnswer(count) }
 
     fun onWrong(count: Int){
         quizRepo.onWrongAnswer(count)

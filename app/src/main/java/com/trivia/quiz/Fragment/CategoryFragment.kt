@@ -29,7 +29,6 @@ class CategoryFragment : Fragment() {
     @Inject
     lateinit var musicClass: MusicClass
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {

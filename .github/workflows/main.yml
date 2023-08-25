@@ -16,9 +16,9 @@ jobs:
         run: |
           # Get existing version code from build.gradle
           version_code=$(grep "versionCode" app/build.gradle | awk '{print $2}' | tr -d '\n')
-          # Increment existing version code by 1
-          version_name=$((version_code + 1))
-          version_code=$((version_code + 1))
+          # Increment existing version code by 0.1
+          version_name=$((version_code + 0.1))
+          version_code=$((version_code + 0.1))
           # Set environment variable for later use
           echo "VERSION_NAME=$version_name" >> $GITHUB_ENV
           echo "VERSION_CODE=$version_code" >> $GITHUB_ENV
@@ -34,14 +34,5 @@ jobs:
         run: |
           git config user.email "fazil8785@gmail.com"
           git config user.name "Mdmuzammil16"
-          git commit -am "Bumping to ${{ env.VERSION_CODE }}"
+          git commit -am "Bumping to ${{ env.VERSION_CODE }} version"
           git push origin HEAD
-
-      - name: Open pull request
-        uses: peter-evans/create-pull-request@v5.0.0
-        with:
-          commit-message: "Bumping to ${{ env.VERSION_NAME }}"
-          branch: "${{ github.ref }}"
-          title: "${{ env.VERSION_NAME }} - (${{ env.VERSION_CODE }})"
-          body: "${{ env.VERSION_NAME }} - (${{ env.VERSION_CODE }})"
-          base: "master"

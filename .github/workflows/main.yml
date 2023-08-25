@@ -35,8 +35,8 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config user.email "github-actions@github.com"
-          git config user.name "Github Actions"
+          git config user.email "fazil8785@gmail.com"
+          git config user.name "Mdmuzammil16"
           git commit -am "Bump version code and change version name"
           git push origin HEAD
           

@@ -19,17 +19,13 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AvatorFragment : Fragment(), AvatorInterface {
 
-    var _binding: FragmentAvatorBinding? = null
-    val binding get() = _binding!!
+    private var _binding: FragmentAvatorBinding? = null
+    private val binding get() = _binding!!
 
-    @Inject
-    lateinit var userPreference: UserPreference
 
-    var selectedImage = ""
+    private var selectedImage = ""
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAvatorBinding.inflate(inflater, container, false)
 
@@ -39,8 +35,13 @@ class AvatorFragment : Fragment(), AvatorInterface {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val imagesList = arrayListOf(R.drawable.redavator, R.drawable.person, R.drawable.girlavator,
-                            R.drawable.purpleavator, R.drawable.blueavator)
+        val imagesList = arrayListOf(
+            R.drawable.redavator,
+            R.drawable.person,
+            R.drawable.girlavator,
+            R.drawable.purpleavator,
+            R.drawable.blueavator
+        )
         binding.avatorRv.layoutManager = GridLayoutManager(requireContext(), 3)
 
         binding.avatorRv.adapter = AvatorAdapter(imagesList, this)
@@ -54,8 +55,6 @@ class AvatorFragment : Fragment(), AvatorInterface {
         }
 
     }
-
-
 
 
     override fun getAvatorImage(image: Int) {

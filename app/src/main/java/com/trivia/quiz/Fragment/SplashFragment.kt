@@ -18,8 +18,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class SplashFragment : Fragment() {
 
-    var _binding: FragmentSplashBinding? = null
-    val binding get() = _binding!!
+    private var _binding: FragmentSplashBinding? = null
+    private val binding get() = _binding!!
 
     @Inject
     lateinit var userPreference: UserPreference
@@ -39,9 +39,9 @@ class SplashFragment : Fragment() {
         lifecycleScope.launch {
             delay(1500)
             val name = userPreference.getUserinfo("name")
-            if (!name.isBlank()){
+            if (!name.isBlank()) {
                 findNavController().navigate(R.id.action_splashFragment_to_categoryFragment2)
-            }else{
+            } else {
                 findNavController().navigate(R.id.action_global_avatorFragment)
             }
 

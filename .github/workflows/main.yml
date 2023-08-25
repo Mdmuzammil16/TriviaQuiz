@@ -16,9 +16,9 @@ jobs:
         run: |
           # Get existing version code from build.gradle
           version_code=$(grep "versionCode" app/build.gradle | awk '{print $2}' | tr -d '\n')
-          # Increment existing version code by 0.1
-          version_name=$((version_code + 0.1))
-          version_code=$((version_code + 0.1))
+          # Increment existing version code by 1
+          version_name=$((version_code + 1))
+          version_code=$((version_code + 1))
           # Set environment variable for later use
           echo "VERSION_NAME=$version_name" >> $GITHUB_ENV
           echo "VERSION_CODE=$version_code" >> $GITHUB_ENV

@@ -3,41 +3,40 @@ name: Bump version code & change version name
 on:
   push:
     branches:
-      - 'master'
-      
+      - "master"
+
 jobs:
   bump-version-and-open-pr:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-        
+
       - name: Extract existing version code
         run: |
-          # Extract version number from branch name
-          version_name=${GITHUB_REF#refs/heads/bump/v}
           # Get existing version code from build.gradle
           version_code=$(grep "versionCode" app/build.gradle | awk '{print $2}' | tr -d '\n')
           # Increment existing version code by 1
+          version_name=$((version_code + 1))
           version_code=$((version_code + 1))
           # Set environment variable for later use
           echo "VERSION_NAME=$version_name" >> $GITHUB_ENV
           echo "VERSION_CODE=$version_code" >> $GITHUB_ENV
-          
+
       - name: Increase version code and change version name
         run: |
           # Update build.gradle with new version code and name
           echo "${{ env.VERSION_CODE }} - ${{ env.VERSION_NAME }}"
           sed -i "s|versionCode [0-9]\+|versionCode ${{ env.VERSION_CODE }}|g" app/build.gradle
           sed -i "s|versionName \"[^\"]*\"|versionName \"${{ env.VERSION_NAME }}\"|g" app/build.gradle
-          
+
       - name: Commit and push changes
         run: |
           git config user.email "fazil8785@gmail.com"
           git config user.name "Mdmuzammil16"
-          git commit -am "Bumping to ${{ env.VERSION_NAME }}"
+          git commit -am "Bumping to ${{ env.VERSION_CODE }}"
           git push origin HEAD
-          
+
       - name: Open pull request
         uses: peter-evans/create-pull-request@v5.0.0
         with:

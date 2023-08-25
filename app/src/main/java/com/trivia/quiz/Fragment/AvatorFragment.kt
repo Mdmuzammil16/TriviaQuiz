@@ -18,7 +18,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class AvatorFragment : Fragment(), AvatorInterface {
-
     private var _binding: FragmentAvatorBinding? = null
     private val binding get() = _binding!!
 

@@ -16,19 +16,17 @@ jobs:
         run: |
           # Get existing version code from build.gradle
           version_code=$(grep "versionCode" app/build.gradle | awk '{print $2}' | tr -d '\n')
-          # Increment existing version code by 1
-          version_name=$((version_code + 1))
-          version_code=$((version_code + 1))
+          # Increment existing version code by 0.1
+          version_code=$(echo "$version_code + 0.1" | bc)
           # Set environment variable for later use
-          echo "VERSION_NAME=$version_name" >> $GITHUB_ENV
-          echo "VERSION_CODE=$version_code" >> $GITHUB_ENV
+          echo "VERSION_NAME=$version_code" >> $GITHUB_ENV
 
       - name: Increase version code and change version name
         run: |
           # Update build.gradle with new version code and name
-          echo "${{ env.VERSION_CODE }} - ${{ env.VERSION_NAME }}"
+          echo "${{ env.VERSION_CODE }} - ${{ env.VERSION_CODE }}"
           sed -i "s|versionCode [0-9]\+|versionCode ${{ env.VERSION_CODE }}|g" app/build.gradle
-          sed -i "s|versionName \"[^\"]*\"|versionName \"${{ env.VERSION_NAME }}\"|g" app/build.gradle
+          sed -i "s|versionName \"[^\"]*\"|versionName \"${{ env.VERSION_CODE }}\"|g" app/build.gradle
 
       - name: Commit and push changes
         run: |

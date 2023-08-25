@@ -16,8 +16,8 @@ android {
         applicationId "com.trivia.quiz"
         minSdk 23
         targetSdk 32
-        versionCode 1.1
-        versionName "1.1"
+        versionCode 1.2.1
+        versionName ""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

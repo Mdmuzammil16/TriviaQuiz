@@ -2,7 +2,7 @@ name: Bump version code & change version name
 on:
   push:
     branches:
-      - 'bump/v*.*.*'
+      - 'master'
       
 jobs:
   bump-version-and-open-pr:

@@ -1,0 +1,30 @@
+name: Bump version code
+
+on:
+  push:
+    branches:
+      - 'bump/v*.*.*'
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Increase version code
+        run: |
+          # Extract version code from build.gradle
+          version_code=$(grep "versionCode" app/build.gradle | awk '{print $2}' | tr -d '\n')
+
+          # Increment version code by 1
+          version_code=$((version_code + 1))
+
+          # Update build.gradle with new version code
+          sed -i "s/versionCode [0-9]\+/versionCode $version_code/g" app/build.gradle
+
+          # Commit and push changes
+          git config user.email "github-actions@github.com"
+          git config user.name "GitHub Actions"
+          git commit -am "Bump version code"
+          git push origin HEAD

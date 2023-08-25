@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class QuizViewModel @Inject constructor(val quizRepo: QuizRepo) : ViewModel() {
+class QuizViewModel @Inject constructor(private val quizRepo: QuizRepo) : ViewModel() {
 
     val quizListLiveData get() = quizRepo.quizListLiveData
     val quizModelLiveData get() = quizRepo.quizModelLiveData

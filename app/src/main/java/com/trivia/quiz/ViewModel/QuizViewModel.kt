@@ -15,21 +15,23 @@ class QuizViewModel @Inject constructor(private val quizRepo: QuizRepo) : ViewMo
     val quizModelLiveData get() = quizRepo.quizModelLiveData
 
 
-    fun getQuizQuestions(category: String,limit: String, diffulty: String){
+    fun getQuizQuestions(category: String, limit: String, diffulty: String) {
         viewModelScope.launch {
-            quizRepo.getQuizQuestions(category,limit,diffulty)
+            quizRepo.getQuizQuestions(category, limit, diffulty)
         }
     }
 
 
-    fun onCorrect(count: Int){ quizRepo.onCorrectAnswer(count) }
+    fun onCorrect(count: Int) {
+        quizRepo.onCorrectAnswer(count)
+    }
 
-    fun onWrong(count: Int){
+    fun onWrong(count: Int) {
         quizRepo.onWrongAnswer(count)
     }
 
 
-    fun getRandomFacts(): String{
+    fun getRandomFacts(): String {
         return quizRepo.getFacts()
     }
 

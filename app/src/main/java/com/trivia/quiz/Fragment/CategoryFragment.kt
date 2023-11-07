@@ -42,10 +42,9 @@ class CategoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val list = arrayListOf<CategoryModel>(
+        val list = arrayListOf(
             CategoryModel(
-                "Arts & Literacy",
-                "" + "Test Your Knowledge in Arts & Literacy",
+                "Arts & Literacy", "Test Your Knowledge in Arts & Literacy",
                 R.drawable.arts,
                 "arts_and_literature"
             ), CategoryModel(

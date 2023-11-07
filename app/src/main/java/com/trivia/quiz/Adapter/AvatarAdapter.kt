@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.trivia.quiz.InterFaces.AvatorInterface
 import com.trivia.quiz.databinding.AvatoritemBinding
 
-class AvatorAdapter constructor(val list: List<Int>, val avatorInterface: AvatorInterface): RecyclerView.Adapter<AvatorAdapter.ViewHolder>() {
+class AvatarAdapter constructor(val list: List<Int>, val avatorInterface: AvatorInterface): RecyclerView.Adapter<AvatarAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):  ViewHolder {
@@ -17,7 +17,7 @@ class AvatorAdapter constructor(val list: List<Int>, val avatorInterface: Avator
     override fun onBindViewHolder(holder:  ViewHolder, position: Int) {
         holder.binding.avatorIv.setImageResource(list[position])
         holder.binding.root.setOnClickListener {
-            avatorInterface.getAvatorImage(list[position])
+            avatorInterface.getAvatarImage(list[position])
         }
     }
 

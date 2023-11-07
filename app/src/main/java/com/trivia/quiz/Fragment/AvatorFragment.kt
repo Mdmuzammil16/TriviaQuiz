@@ -7,13 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.trivia.quiz.Adapter.AvatorAdapter
+import com.trivia.quiz.Adapter.AvatarAdapter
 import com.trivia.quiz.InterFaces.AvatorInterface
 import com.trivia.quiz.R
 import com.trivia.quiz.databinding.FragmentAvatorBinding
-import com.trivia.quiz.utils.UserPreference
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -43,7 +41,7 @@ class AvatorFragment : Fragment(), AvatorInterface {
         )
         binding.avatorRv.layoutManager = GridLayoutManager(requireContext(), 3)
 
-        binding.avatorRv.adapter = AvatorAdapter(imagesList, this)
+        binding.avatorRv.adapter = AvatarAdapter(imagesList, this)
 
 
         binding.saveBtn.setOnClickListener {
@@ -56,7 +54,7 @@ class AvatorFragment : Fragment(), AvatorInterface {
     }
 
 
-    override fun getAvatorImage(image: Int) {
+    override fun getAvatarImage(image: Int) {
         binding.currentIv.setImageResource(image)
         selectedImage = image.toString()
     }
